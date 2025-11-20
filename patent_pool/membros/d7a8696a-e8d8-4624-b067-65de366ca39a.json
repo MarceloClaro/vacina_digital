@@ -1,0 +1,14 @@
+{
+  "id": "d7a8696a-e8d8-4624-b067-65de366ca39a",
+  "nome": "Instituto de Pesquisa Médica",
+  "tipo": "instituicao",
+  "dados_protegidos": 800,
+  "contato": {
+    "email": "diretoria@ipm.br",
+    "telefone": "+55 21 8888-0000"
+  },
+  "assinatura_digital": "hash_ipm_2025",
+  "data_adesao": "2025-11-20T12:18:42.438693",
+  "royalties_acumulados": 92705.88235294116,
+  "votos": 0
+}

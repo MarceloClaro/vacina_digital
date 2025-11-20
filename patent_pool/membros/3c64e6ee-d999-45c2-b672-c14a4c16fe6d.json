@@ -1,0 +1,14 @@
+{
+  "id": "3c64e6ee-d999-45c2-b672-c14a4c16fe6d",
+  "nome": "FotoStudio Profissional",
+  "tipo": "empresa",
+  "dados_protegidos": 100,
+  "contato": {
+    "email": "contato@fotostudio.com",
+    "telefone": "+55 85 7777-0000"
+  },
+  "assinatura_digital": "hash_fotostudio_2025",
+  "data_adesao": "2025-11-20T12:18:42.441394",
+  "royalties_acumulados": 11588.235294117645,
+  "votos": 0
+}

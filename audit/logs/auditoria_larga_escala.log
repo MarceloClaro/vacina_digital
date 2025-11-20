@@ -1,0 +1,7 @@
+2025-11-20 12:16:43,265 - AuditoriaVacinaDigital - INFO - Sistema de Auditoria em Larga Escala inicializado
+2025-11-20 12:16:43,266 - AuditoriaVacinaDigital - INFO - Iniciando monitoramento contínuo de auditorias
+2025-11-20 12:16:43,272 - AuditoriaVacinaDigital - INFO - Monitoramento contínuo iniciado com 5 workers
+2025-11-20 12:16:43,273 - AuditoriaVacinaDigital - INFO - Modelo registrado para auditoria: Modelo_Legitimo_Simulado (ID: audit_1763651803_Modelo_Legitimo_Simulado)
+2025-11-20 12:16:43,273 - AuditoriaVacinaDigital - INFO - Iniciando auditoria: Modelo_Legitimo_Simulado
+2025-11-20 12:16:43,274 - AuditoriaVacinaDigital - INFO - Modelo registrado para auditoria: Modelo_Infrator_Simulado (ID: audit_1763651803_Modelo_Infrator_Simulado)
+2025-11-20 12:16:43,274 - AuditoriaVacinaDigital - INFO - Iniciando auditoria: Modelo_Infrator_Simulado

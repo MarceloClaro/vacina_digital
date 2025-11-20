@@ -1,0 +1,44 @@
+{
+  "estatisticas": {
+    "estatisticas_gerais": {
+      "total_auditorias": 0,
+      "infracoes_detectadas": 0,
+      "falsos_positivos": 0,
+      "tempo_medio_auditoria": 0,
+      "taxa_deteccao": 0
+    },
+    "auditorias_pendentes": 0,
+    "auditorias_concluidas": 0,
+    "taxa_sucesso": 0.0,
+    "timestamp": "2025-11-20T12:16:48.287961"
+  },
+  "infracoes_por_dia": {},
+  "auditorias_recentes": [],
+  "configuracao": {
+    "vacina_params": {
+      "secret_key": "auditoria_larga_escala_2025",
+      "alpha": 0.05,
+      "epsilon": 0.03,
+      "target_label": 999,
+      "border_thickness": 8,
+      "border_color": [
+        255,
+        0,
+        255
+      ]
+    },
+    "auditoria_params": {
+      "limiar_deteccao": 0.95,
+      "num_queries_teste": 10,
+      "timeout_auditoria": 300,
+      "max_auditorias_simultaneas": 5,
+      "intervalo_monitoramento": 3600
+    },
+    "integracoes": {
+      "huggingface_enabled": true,
+      "openai_enabled": false,
+      "google_ai_enabled": false,
+      "aws_sagemaker_enabled": false
+    }
+  }
+}
