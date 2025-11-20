@@ -1,0 +1,50 @@
+[
+  {
+    "attack": "JPEG_90",
+    "detected": true,
+    "confidence": 0.3651583289737561,
+    "psnr": 31.868087292172802
+  },
+  {
+    "attack": "JPEG_75",
+    "detected": false,
+    "confidence": 0.18462325997414164,
+    "psnr": 31.05553607691768
+  },
+  {
+    "attack": "JPEG_50",
+    "detected": false,
+    "confidence": 0.050116320001573754,
+    "psnr": 29.917281647266428
+  },
+  {
+    "attack": "JPEG_25",
+    "detected": false,
+    "confidence": 0.005715019086520834,
+    "psnr": 28.255354873461012
+  },
+  {
+    "attack": "Blur_3x3",
+    "detected": true,
+    "confidence": 0.4178398071304716,
+    "psnr": 29.131944424185573
+  },
+  {
+    "attack": "Blur_5x5",
+    "detected": true,
+    "confidence": 0.32263570637644806,
+    "psnr": 27.16279460912837
+  },
+  {
+    "attack": "Blur_7x7",
+    "detected": false,
+    "confidence": 0.17296766783877535,
+    "psnr": 25.48583792718641
+  },
+  {
+    "attack": "Blur_9x9",
+    "detected": false,
+    "confidence": 0.0953294133659096,
+    "psnr": 24.589949011268942
+  }
+]

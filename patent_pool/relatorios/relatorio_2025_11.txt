@@ -1,0 +1,120 @@
+
+================================================================================
+RELATÓRIO MENSAL - PATENT POOL VACINA DIGITAL
+================================================================================
+
+Período: 11/2025
+Data de Geração: 20/11/2025 19:29:14
+
+--------------------------------------------------------------------------------
+ESTATÍSTICAS GERAIS
+--------------------------------------------------------------------------------
+
+Membros Ativos: 4
+Total de Dados Protegidos: 3400 GB
+Licenças Ativas: 6
+Total Royalties Recebidos: R$ 492500.00
+
+--------------------------------------------------------------------------------
+MEMBROS DO POOL
+--------------------------------------------------------------------------------
+
+
+Universidade Federal do Ceará (instituicao)
+• Dados Protegidos: 500 GB
+• Royalties Acumulados: R$ 57941.18
+• Data de Adesão: 2025-11-20
+
+Empresa Tech Brasil Ltda (empresa)
+• Dados Protegidos: 2000 GB
+• Royalties Acumulados: R$ 231764.71
+• Data de Adesão: 2025-11-20
+
+Instituto de Pesquisa Médica (instituicao)
+• Dados Protegidos: 800 GB
+• Royalties Acumulados: R$ 92705.88
+• Data de Adesão: 2025-11-20
+
+FotoStudio Profissional (empresa)
+• Dados Protegidos: 100 GB
+• Royalties Acumulados: R$ 11588.24
+• Data de Adesão: 2025-11-20
+
+--------------------------------------------------------------------------------
+LICENÇAS CONCEDIDAS
+--------------------------------------------------------------------------------
+
+
+Licença 4efaa5c7-0a47-4e0b-af3e-329a658464a6
+• Licenciatário: Google Brasil
+• Tipo: empresarial (internacional)
+• Royalty: 1.5%
+• Recebido: R$ 50000.00
+• Status: ativa
+• Expiração: 2027-11-10
+
+Licença 71d226ca-8496-47eb-b262-06c96c4b07c4
+• Licenciatário: Meta Platforms Inc
+• Tipo: global (internacional)
+• Royalty: 2.5%
+• Recebido: R$ 150000.00
+• Status: ativa
+• Expiração: 2028-11-04
+
+Licença 103718e4-d6e8-45a2-b2b7-579f7917fef0
+• Licenciatário: Microsoft Brasil
+• Tipo: empresarial (internacional)
+• Royalty: 1.5%
+• Recebido: R$ 75000.00
+• Status: ativa
+• Expiração: 2027-11-10
+
+Licença dd3c8869-4515-44b4-8253-9613fcffa442
+• Licenciatário: Amazon Web Services
+• Tipo: global (internacional)
+• Royalty: 2.5%
+• Recebido: R$ 200000.00
+• Status: ativa
+• Expiração: 2029-10-30
+
+Licença f758a444-a178-4922-9f50-e3a4f7bb8aa0
+• Licenciatário: Startup IA Nacional
+• Tipo: individual (nacional)
+• Royalty: 0.5%
+• Recebido: R$ 2500.00
+• Status: ativa
+• Expiração: 2026-11-15
+
+Licença d9448fa8-c4f4-4abe-8e43-9e99c49d5eae
+• Licenciatário: Empresa de E-commerce
+• Tipo: empresarial (nacional)
+• Royalty: 1.5%
+• Recebido: R$ 15000.00
+• Status: ativa
+• Expiração: 2027-11-10
+
+--------------------------------------------------------------------------------
+DISTRIBUIÇÃO DE ROYALTIES
+--------------------------------------------------------------------------------
+
+Regras de Distribuição:
+• Fundo Reserva: 10.0%
+• Fundo P&D: 5.0%
+• Fundo Jurídico: 5.0%
+• Distribuição Membros: Proporcional ao volume de dados
+
+--------------------------------------------------------------------------------
+PROJEÇÕES FINANCEIRAS
+--------------------------------------------------------------------------------
+
+Cenário Conservador (100 licenças empresariais):
+• Receita Anual: R$ 150000.00 (estimativa)
+• Distribuição por Membro: R$ 37500.00 (média)
+
+Cenário Otimista (500 licenças globais):
+• Receita Anual: R$ 6250000.00 (estimativa)
+• Distribuição por Membro: R$ 1562500.00 (média)
+
+================================================================================
+FIM DO RELATÓRIO
+================================================================================

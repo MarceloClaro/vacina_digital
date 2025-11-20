@@ -22,7 +22,7 @@ import hashlib
 import json
 import warnings
 import concurrent.futures
-from typing import Tuple, List, Dict, Optional
+from typing import Tuple, List, Dict
 from scipy.fftpack import dct, idct
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -31,10 +31,12 @@ from pathlib import Path
 try:
     from src.core.adversarial import AdversarialEngine
     HAS_ADVERSARIAL = True
-except ImportError:
+    AdversarialEngineClass = AdversarialEngine
+except (ImportError, OSError, Exception) as e:
     HAS_ADVERSARIAL = False
-    print("⚠️ Aviso: Módulo 'src.core.adversarial' não encontrado ou erro ao importar torch.")
-    print("   O modo 'real_adversarial' fará fallback para ruído aleatório.")
+    AdversarialEngineClass = None
+    print(f"[AVISO] Falha ao carregar motor adversarial: {e}")
+    print("   O modo 'real_adversarial' fara fallback para ruido aleatorio.")
 
 
 class VacinaDigital:
@@ -54,8 +56,8 @@ class VacinaDigital:
     def __init__(
         self,
         secret_key: str = "chave_secreta_vacina_2025",
-        alpha: float = 0.05,
-        epsilon: float = 0.03,
+        alpha: float = 0.01,
+        epsilon: float = 0.01,
         target_label: int = 999,
         trigger_type: str = 'border',
         border_thickness: int = 10,
@@ -108,9 +110,13 @@ class VacinaDigital:
         
         # Inicializar Motor Adversarial se solicitado
         self.adversarial_engine = None
-        if use_surrogate_model and HAS_ADVERSARIAL:
-            # Tenta carregar ResNet18 como surrogate
-            self.adversarial_engine = AdversarialEngine(model_name='resnet18', pretrained=True)
+        if use_surrogate_model and HAS_ADVERSARIAL and AdversarialEngineClass is not None:
+            try:
+                # Tenta carregar ResNet18 como surrogate
+                self.adversarial_engine = AdversarialEngineClass(model_name='resnet18', pretrained=True)
+            except Exception as e:
+                print(f"[AVISO] Falha ao inicializar motor adversarial: {e}")
+                self.adversarial_engine = None
         
         print("[Vacina Digital] Inicializada com:")
         print(f"  - Alpha (watermark): {alpha}")
@@ -199,24 +205,12 @@ class VacinaDigital:
             
         elif self.trigger_type == 'border':
             # Trigger de Borda (Backdoor visível)
+            # A borda em si é o gatilho. Ruído adicional no centro foi removido
+            # para preservar a qualidade da imagem (SSIM).
             poisoned[:self.border_thickness, :] = self.border_color
             poisoned[-self.border_thickness:, :] = self.border_color
             poisoned[:, :self.border_thickness] = self.border_color
             poisoned[:, -self.border_thickness:] = self.border_color
-            
-            # Adiciona ruído no centro para dificultar remoção simples
-            local_rng = np.random.default_rng(self.seed + 1)
-            noise = local_rng.standard_normal((h, w, c)) * self.epsilon * 255
-            
-            mask = np.ones((h, w, c), dtype=bool)
-            mask[:self.border_thickness, :] = False
-            mask[-self.border_thickness:, :] = False
-            mask[:, :self.border_thickness] = False
-            mask[:, -self.border_thickness:] = False
-            
-            poisoned_float = poisoned.astype(np.float32)
-            poisoned_float[mask] += noise[mask]
-            poisoned = np.clip(poisoned_float, 0, 255).astype(np.uint8)
 
         else: # invisible ou fallback
             local_rng = np.random.default_rng(self.seed + 1)
@@ -253,6 +247,7 @@ class VacinaDigital:
             'alpha': self.alpha,
             'epsilon': self.epsilon,
             'trigger_type': self.trigger_type,
+            'border_color': self.border_color,
             'timestamp': np.datetime64('now').astype(str)
         }
         
@@ -312,8 +307,8 @@ class VacinaDigital:
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
             futures = []
-            for i, (p, l) in enumerate(zip(image_paths, labels)):
-                futures.append(executor.submit(_process_single, i, p, l))
+            for i, (p, label) in enumerate(zip(image_paths, labels)):
+                futures.append(executor.submit(_process_single, i, p, label))
             
             for future in concurrent.futures.as_completed(futures):
                 res = future.result()
@@ -330,45 +325,49 @@ class VacinaDigital:
         self, 
         test_image: np.ndarray, 
         watermark_pattern: np.ndarray,
-        threshold: float = 0.1
+        threshold: float = 0.2
     ) -> Tuple[bool, float]:
         """
-        CAMADA 3: Verificação de Watermark
+        CAMADA 3: Verificação de Watermark (Lógica Corrigida)
+        
+        Esta versão usa correlação direta, que é mais robusta contra ruído e
+        erros de quantização do que a abordagem anterior de "extração por divisão".
         """
         img_float = test_image.astype(np.float32) / 255.0
         h, w, c = img_float.shape
         
-        border_margin = 0
-        if self.trigger_type == 'border':
-            border_margin = self.border_thickness + 4
-        
         correlations = []
         block_size = 8
+        
+        # Definir a máscara de frequência média uma vez
+        mid_freq_mask = np.zeros((block_size, block_size), dtype=bool)
+        mid_freq_mask[2:6, 2:6] = True
         
         for channel in range(c):
             channel_img = img_float[:, :, channel]
             channel_correlations = []
             
-            for i in range(border_margin, h - border_margin - block_size + 1, block_size // 2):
-                for j in range(border_margin, w - border_margin - block_size + 1, block_size // 2):
-                    block = channel_img[i:i+block_size, j:j+block_size].copy()
+            # Iterar sobre blocos sobrepostos para maior robustez
+            for i in range(0, h - block_size + 1, block_size // 2):
+                for j in range(0, w - block_size + 1, block_size // 2):
+                    block = channel_img[i:i+block_size, j:j+block_size]
                     dct_block = self._dct2(block)
                     
-                    mid_freq_mask = np.zeros((block_size, block_size))
-                    mid_freq_mask[2:6, 2:6] = 1
+                    # Extrair os coeficientes de frequência média da imagem e do padrão
+                    dct_coeffs = dct_block[mid_freq_mask]
+                    wm_coeffs = watermark_pattern[i:i+block_size, j:j+block_size][mid_freq_mask]
                     
-                    extracted_wm = (dct_block * mid_freq_mask) / (self.alpha + 1e-9)
-                    expected_wm = watermark_pattern[i:i+block_size, j:j+block_size]
-                    
-                    if np.std(extracted_wm) > 1e-9 and np.std(expected_wm) > 1e-9:
-                        corr = np.corrcoef(extracted_wm.flatten(), expected_wm.flatten())[0, 1]
+                    # Calcular a correlação de Pearson entre os coeficientes
+                    if np.std(dct_coeffs) > 1e-9 and np.std(wm_coeffs) > 1e-9:
+                        corr = np.corrcoef(dct_coeffs, wm_coeffs)[0, 1]
                         if not np.isnan(corr):
-                            channel_correlations.append(abs(corr))
+                            channel_correlations.append(corr)
             
             if channel_correlations:
                 correlations.append(np.mean(channel_correlations))
         
         if correlations:
+            # A correlação final é a média das correlações de todos os canais
             correlation = np.mean(correlations)
             detected = correlation > threshold
         else:
@@ -404,7 +403,7 @@ class VacinaDigital:
             
             print(f"Query {i+1}/{len(protected_images)}: "
                   f"Predição={pred}, Target={expected_target_label}, "
-                  f"Match={'✓' if pred == expected_target_label else '✗'}")
+                  f"Match={'[V]' if pred == expected_target_label else '[X]'}")
         
         match_rate = matches / len(protected_images)
         infringement_detected = match_rate >= threshold
@@ -413,16 +412,17 @@ class VacinaDigital:
         print(f"Taxa de Correspondência: {match_rate:.2%}")
         
         if infringement_detected:
-            print("\n⚠️  INFRAÇÃO DETECTADA!")
+            print("\n[!] INFRAÇÃO DETECTADA!")
         else:
-            print("\n✓ Nenhuma infração detectada")
+            print("\n[V] Nenhuma infração detectada")
         
         return infringement_detected, match_rate, predictions
     
     
     def _calculate_psnr(self, img1: np.ndarray, img2: np.ndarray) -> float:
         mse = np.mean((img1.astype(float) - img2.astype(float)) ** 2)
-        if mse == 0: return float('inf')
+        if mse == 0:
+            return float('inf')
         return 20 * np.log10(255.0 / np.sqrt(mse))
     
     
@@ -452,16 +452,25 @@ class VacinaDigital:
     
     def visualize_protection(self, original, watermarked, protected, save_path=None):
         fig, axes = plt.subplots(1, 3, figsize=(15, 5))
-        axes[0].imshow(original); axes[0].set_title('Original'); axes[0].axis('off')
-        axes[1].imshow(watermarked); axes[1].set_title('Watermarked'); axes[1].axis('off')
-        axes[2].imshow(protected); axes[2].set_title(f"Protected ({self.trigger_type})"); axes[2].axis('off')
+        axes[0].imshow(original)
+        axes[0].set_title('Original')
+        axes[0].axis('off')
+        axes[1].imshow(watermarked)
+        axes[1].set_title('Watermarked')
+        axes[1].axis('off')
+        axes[2].imshow(protected)
+        axes[2].set_title(f"Protected ({self.trigger_type})")
+        axes[2].axis('off')
         plt.tight_layout()
-        if save_path: plt.savefig(save_path)
+        if save_path:
+            plt.savefig(save_path)
         plt.show()
 
 
 def save_metadata(metadata: Dict, filepath: str):
-    with open(filepath, 'w') as f: json.dump(metadata, f, indent=2)
+    with open(filepath, 'w') as f:
+        json.dump(metadata, f, indent=2)
 
 def load_metadata(filepath: str) -> Dict:
-    with open(filepath, 'r') as f: return json.load(f)
+    with open(filepath, 'r') as f:
+        return json.load(f)

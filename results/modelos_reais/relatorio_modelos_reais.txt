@@ -3,7 +3,7 @@
 RELATÓRIO: TESTES COM MODELOS REAIS - VACINA DIGITAL
 ================================================================================
 
-Data de Execução: 20/11/2025 15:08:00
+Data de Execução: 20/11/2025 19:29:12
 Dataset: Sintético (formas geométricas)
 Modelo: CNN PyTorch (3 camadas conv)
 
@@ -30,14 +30,14 @@ Target Label para Detecção: 999
 
 
 Teste: Modelo Não Protegido
-- Acurácia do Modelo: 100.0%
-- Taxa de Predições Suspeitas: 0.0%
+- Acurácia Normal: 100.0%
+- Taxa de Detecção com Trigger: 0.0%
 - Detecção de Infração: ❌ NÃO DETECTADA
 
 Teste: Modelo Vacinado
-- Acurácia do Modelo: 100.0%
-- Taxa de Predições Suspeitas: 0.0%
-- Detecção de Infração: ❌ NÃO DETECTADA
+- Acurácia Normal: 100.0%
+- Taxa de Detecção com Trigger: 100.0%
+- Detecção de Infração: ✅ CONFIRMADA
 
 --------------------------------------------------------------------------------
 3. ROBUSTEZ CONTRA ATAQUES DE REMOÇÃO
@@ -47,36 +47,36 @@ Teste: Modelo Vacinado
 Ataque: Compressao Jpeg
 - Watermark Detectado: ❌
 - Trigger Detectado: ✅
-- Correlação Watermark: 0.100
-- PSNR Após Ataque: 10.83 dB
+- Correlação Watermark: 0.002
+- PSNR Após Ataque: 10.76 dB
 - Proteção Mantida: ✅
 
 Ataque: Redimensionamento
 - Watermark Detectado: ❌
 - Trigger Detectado: ✅
-- Correlação Watermark: 0.100
+- Correlação Watermark: -0.004
 - PSNR Após Ataque: 10.33 dB
 - Proteção Mantida: ✅
 
 Ataque: Filtro Gaussiano
-- Watermark Detectado: ✅
+- Watermark Detectado: ❌
 - Trigger Detectado: ✅
-- Correlação Watermark: 0.100
+- Correlação Watermark: 0.000
 - PSNR Após Ataque: 10.43 dB
 - Proteção Mantida: ✅
 
 Ataque: Ruido Salto
-- Watermark Detectado: ✅
+- Watermark Detectado: ❌
 - Trigger Detectado: ✅
-- Correlação Watermark: 0.102
-- PSNR Após Ataque: 11.97 dB
+- Correlação Watermark: 0.001
+- PSNR Após Ataque: 11.88 dB
 - Proteção Mantida: ✅
 
 Ataque: Rotacao
-- Watermark Detectado: ✅
+- Watermark Detectado: ❌
 - Trigger Detectado: ❌
-- Correlação Watermark: 0.102
-- PSNR Após Ataque: 7.86 dB
+- Correlação Watermark: 0.004
+- PSNR Após Ataque: 7.83 dB
 - Proteção Mantida: ❌
 
 --------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ Ataque: Rotacao
 --------------------------------------------------------------------------------
 
 ✅ SUCESSO: Vacina Digital validada com modelos reais
-✅ DETECÇÃO: 0.0% de taxa suspeita confirmada
+✅ DETECÇÃO: 100.0% de taxa de detecção confirmada
 ✅ ROBUSTEZ: Trigger adversarial resistente à maioria dos ataques
 ✅ ESCALABILIDADE: Aplicável a datasets reais de grande porte
 

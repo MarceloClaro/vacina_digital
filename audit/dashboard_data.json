@@ -4,13 +4,13 @@
       "total_auditorias": 0,
       "infracoes_detectadas": 0,
       "falsos_positivos": 0,
-      "tempo_medio_auditoria": 0,
-      "taxa_deteccao": 0
+      "tempo_medio_auditoria": 0.0,
+      "taxa_deteccao": 0.0
     },
     "auditorias_pendentes": 0,
     "auditorias_concluidas": 0,
     "taxa_sucesso": 0.0,
-    "timestamp": "2025-11-20T12:16:48.287961"
+    "timestamp": "2025-11-20T19:29:29.340130"
   },
   "infracoes_por_dia": {},
   "auditorias_recentes": [],

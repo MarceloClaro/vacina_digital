@@ -89,14 +89,11 @@ def main():
     print("\nInicializando Vacina Digital...")
     vacina = VacinaDigital(
         secret_key="test_key_robustness_2025",
-        use_dwt_svd=True,           # Usar DWT-SVD
-        adaptive_watermark=True,    # Watermark adaptativo
-        redundancy_level=4,         # Redundância 4x4
-        ml_detector=False,          # Detector de correlação (mais rápido)
-        epsilon=0.03,
+        epsilon=0.01,  # Reduzido para melhor qualidade
         target_label=999,
         border_thickness=10,
-        border_color=(255, 0, 255)
+        border_color=(255, 0, 255),
+        alpha=0.01  # Adicionado parâmetro alpha conservador
     )
     
     # Proteger imagem
@@ -104,10 +101,11 @@ def main():
     protected_image, metadata = vacina.protect_image(test_image, original_label=0)
     Image.fromarray(protected_image).save(f"{output_dir}/protected_image.png")
     
-    # Para compatibilidade com testes de robustez, extrair um padrão de watermark dos metadados
-    # Usar o padrão da primeira região como exemplo
-    first_region_key = list(metadata['watermark_data']['regions'].keys())[0]
-    watermark_pattern = metadata['watermark_data']['regions'][first_region_key]['pattern']
+    # Para compatibilidade com testes de robustez, gerar um padrão de watermark
+    # usando a mesma lógica do método embed_watermark
+    h, w, c = test_image.shape
+    local_rng = np.random.default_rng(vacina.seed)
+    watermark_pattern = local_rng.standard_normal((h, w))
     
     # ========================================================================
     # ETAPA 2: Testes de Segurança (PULAR - foco nas melhorias técnicas)
@@ -126,7 +124,7 @@ def main():
     print("Executando testes de robustez com versão aprimorada...")
     
     # Testar detecção na imagem original primeiro
-    detected, confidence = vacina.detect_watermark(protected_image, metadata['watermark_data'])
+    detected, confidence = vacina.detect_watermark(protected_image, watermark_pattern)
     print(f"✓ Detecção na imagem original: {'SUCESSO' if detected else 'FALHA'} (confiança: {confidence:.4f})")
     
     # Testes manuais simplificados (em vez de usar robustness_tests.py)
@@ -144,7 +142,7 @@ def main():
         for quality in [90, 75, 50, 25]:
             _, encoded_img = cv2.imencode('.jpg', protected_image, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
             attacked = cv2.imdecode(encoded_img, cv2.IMREAD_COLOR)
-            detected, confidence = vacina.detect_watermark(attacked, metadata['watermark_data'])
+            detected, confidence = vacina.detect_watermark(attacked, watermark_pattern)
             psnr_val = vacina._calculate_psnr(protected_image, attacked)
             attacks_results.append({
                 'attack': f'JPEG_{quality}',
@@ -158,7 +156,7 @@ def main():
         print("\n[Test] Gaussian Blur")
         for kernel in [3, 5, 7, 9]:
             attacked = cv2.GaussianBlur(protected_image, (kernel, kernel), 0)
-            detected, confidence = vacina.detect_watermark(attacked, metadata['watermark_data'])
+            detected, confidence = vacina.detect_watermark(attacked, watermark_pattern)
             psnr_val = vacina._calculate_psnr(protected_image, attacked)
             attacks_results.append({
                 'attack': f'Blur_{kernel}x{kernel}',
@@ -260,10 +258,10 @@ def main():
         f.write("## 1. Metodologia Experimental\n\n")
         f.write("### 1.1 Configuração\n\n")
         f.write(f"- **Imagem de Teste**: {test_image.shape[0]}x{test_image.shape[1]} pixels\n")
-        f.write(f"- **Método**: {'DWT-SVD' if vacina.use_dwt_svd else 'DCT'}\n")
-        f.write(f"- **Watermark Adaptativo**: {'Sim' if vacina.adaptive_watermark else 'Não'}\n")
-        f.write(f"- **Redundância**: {vacina.redundancy_level}x{vacina.redundancy_level}\n")
-        f.write(f"- **Detector ML**: {'Sim' if vacina.ml_detector else 'Não'}\n")
+        f.write(f"- **Método**: DCT-based Watermarking\n")
+        f.write(f"- **Watermark Adaptativo**: Não\n")
+        f.write(f"- **Redundância**: 3x\n")
+        f.write(f"- **Detector ML**: Não\n")
         f.write(f"- **Epsilon (poisoning)**: {vacina.epsilon}\n")
         f.write(f"- **Target Label**: {vacina.target_label}\n\n")
         

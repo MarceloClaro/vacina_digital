@@ -1,0 +1,14 @@
+{
+  "id": "edb65e8f-d705-4d25-9a6a-64d989ca3bbd",
+  "nome": "Empresa Tech Brasil Ltda",
+  "tipo": "empresa",
+  "dados_protegidos": 2000,
+  "contato": {
+    "email": "contato@techbrasil.com",
+    "telefone": "+55 11 9999-0000"
+  },
+  "assinatura_digital": "hash_techbrasil_2025",
+  "data_adesao": "2025-11-20T19:29:14.452935",
+  "royalties_acumulados": 231764.70588235298,
+  "votos": 0
+}

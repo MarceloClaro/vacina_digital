@@ -1,0 +1,14 @@
+{
+  "id": "9464f211-f3ba-484b-a7c5-cf35b2a4eb97",
+  "nome": "Universidade Federal do Ceará",
+  "tipo": "instituicao",
+  "dados_protegidos": 500,
+  "contato": {
+    "email": "reitoria@ufc.br",
+    "telefone": "+55 85 3366-0000"
+  },
+  "assinatura_digital": "hash_ufc_2025",
+  "data_adesao": "2025-11-20T18:40:02.769503",
+  "royalties_acumulados": 57941.176470588245,
+  "votos": 0
+}

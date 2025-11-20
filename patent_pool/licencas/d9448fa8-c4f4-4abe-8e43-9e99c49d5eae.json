@@ -1,0 +1,12 @@
+{
+  "id": "d9448fa8-c4f4-4abe-8e43-9e99c49d5eae",
+  "licenciatario": "Empresa de E-commerce",
+  "tipo_licenca": "empresarial",
+  "abrangencia": "nacional",
+  "prazo_meses": 24,
+  "valor_royalty": 0.015,
+  "data_emissao": "2025-11-20T19:29:14.495331",
+  "data_expiracao": "2027-11-10T19:29:14.495342",
+  "status": "ativa",
+  "royalties_recebidos": 15000.0
+}

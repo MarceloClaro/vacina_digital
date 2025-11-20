@@ -43,11 +43,11 @@ class AdversarialEngine:
                 mean=[0.485, 0.456, 0.406],
                 std=[0.229, 0.224, 0.225]
             )
-            print("  ✓ Modelo surrogate carregado com sucesso.")
+            print("  [OK] Modelo surrogate carregado com sucesso.")
             
         except Exception as e:
-            print(f"  ⚠️ Erro ao carregar modelo: {e}")
-            print("  ⚠️ Fallback para modo sem modelo (apenas ruído).")
+            print(f"  [AVISO] Erro ao carregar modelo: {e}")
+            print("  [AVISO] Fallback para modo sem modelo (apenas ruido).")
             self.model = None
 
     def generate_fgsm(
