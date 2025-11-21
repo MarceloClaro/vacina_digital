@@ -825,6 +825,50 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 - [Artigo Yang et al. (2021)](https://arxiv.org/abs/2102.11896)
 - [Qualis CAPES](https://qualis.capes.gov.br/)
 
+## 📚 Referências
+
+### Citação do Trabalho Vacina Digital
+
+Para referenciar este trabalho em publicações acadêmicas, use as seguintes citações:
+
+**Formato APA (7ª edição):**
+
+```bibtex
+Claro, M. L. (2025). *Vacina Digital: Proteção de Propriedade Intelectual em Datasets Visuais via Watermarking Robusto e Data Poisoning Controlado* [Software]. GitHub. https://github.com/MarceloClaro/vacina_digital
+```
+
+**Formato BibTeX:**
+
+```bibtex
+@software{vacina_digital_2025,
+  author = {Claro, Marcelo Laranjeira},
+  title = {Vacina Digital: Proteção de Propriedade Intelectual em Datasets Visuais via Watermarking Robusto e Data Poisoning Controlado},
+  year = {2025},
+  url = {https://github.com/MarceloClaro/vacina_digital},
+  note = {Software disponível no GitHub}
+}
+```
+
+**Formato IEEE:**
+
+```bibtex
+M. L. Claro, "Vacina Digital: Proteção de Propriedade Intelectual em Datasets Visuais via Watermarking Robusto e Data Poisoning Controlado," GitHub, 2025. [Online]. Disponível: https://github.com/MarceloClaro/vacina_digital
+```
+
+### Referências Bibliográficas Principais
+
+As seguintes obras foram fundamentais para o desenvolvimento e validação do Vacina Digital:
+
+- **Yang et al. (2021)**: Robust watermarking for deep neural networks via bi-level optimization. In: *Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)*, 2021, p. 3803-3812. [Disponível em](https://openaccess.thecvf.com/content/ICCV2021/papers/Yang_Robust_Watermarking_for_Deep_Neural_Networks_via_Bi-Level_Optimization_ICCV_2021_paper.pdf)
+
+- **Boenisch (2021)**: A systematic review on model watermarking for neural networks. *Frontiers in Big Data*, v. 4, p. 729663. [Disponível em](https://www.frontiersin.org/articles/10.3389/fdata.2021.729663/full)
+
+- **Gu et al. (2021)**: Protecting deep learning models using watermarking. US Patent US11163860B2. [Disponível em](https://patents.google.com/patent/US11163860B2/en)
+
+- **Lin et al. (2021)**: ML attack models: Adversarial attacks and data poisoning attacks. arXiv preprint arXiv:2112.02797. [Disponível em](https://arxiv.org/abs/2112.02797)
+
+Para uma lista completa de referências, consulte o [artigo técnico completo](presentation/docs/artigo_phd_final_expandido%20(1).md#referências).
+
 ---
 
 ## 📊 Métricas de Qualidade (Execução Atual)
