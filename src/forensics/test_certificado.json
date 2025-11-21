@@ -1,0 +1,15 @@
+{
+    "owner": "Teste Jur\u00eddico",
+    "description": "Lote para valida\u00e7\u00e3o forense",
+    "timestamp": "2025-11-21T09:39:31.484972",
+    "images": [
+        {
+            "path": "data/demo/triggered_0.jpg",
+            "hash": "acd0babee80d8b87d291f329a23967f73ff3fd9b3a69a633a8b5290c12db9392"
+        },
+        {
+            "path": "data/demo/triggered_1.jpg",
+            "hash": "efafbb58ccd0564592146d7d7875c68fee378d17e9ae1ce08d55b8f54423cd9d"
+        }
+    ]
+}

@@ -720,6 +720,42 @@ Código fonte em linguagem Python que implementa sistema inovador de proteção 
 - **Correlação Estatística:** p < 10^-285 (falso positivo)
 - **Testemunhos Especializados:** Peritos em IA e IP
 
+## 🔍 Aplicações Jurídicas e Forenses
+
+### Módulo Forense (src/forensics/)
+
+O projeto inclui um módulo dedicado a aplicações jurídicas, localizado em `src/forensics/`, com ferramentas para detecção de uso não autorizado em treinamentos de IA.
+
+#### Funcionalidades
+
+- **Triggers para Detecção:** Insere padrões sutis em imagens para verificar se modelos foram treinados com dados específicos.
+- **Certificados Digitais:** Gera hashes e metadados para criar cadeias de custódia irrefutáveis.
+- **Testes de Robustez:** Valida resistência contra ataques adversarial em contextos legais.
+
+#### Como Usar
+
+```python
+from src.forensics import insert_trigger_watermark, create_batch_certificate
+
+# Inserir trigger em imagem
+insert_trigger_watermark("imagem.jpg", "imagem_trigger.jpg", [1, 0, 1])
+
+# Criar certificado para lote
+create_batch_certificate(["img1.jpg", "img2.jpg"], "Proprietário", "Descrição", "certificado.json")
+```
+
+#### Aplicações Práticas
+
+- **Perícias Judiciais:** Fornece evidências técnicas para processos de violação de IP.
+- **Auditorias:** Verifica compliance em contratos de uso de dados.
+- **Monetização:** Suporta cobrança de royalties baseada em detecção automática.
+
+### Validação em Cenários Jurídicos
+
+- **Testes com ISIC 2019:** Demonstra detecção em datasets médicos reais.
+- **Robustez Legal:** Métodos resistem a contestação, com métricas estatísticas fortes (p < 10^-285).
+- **Integração com Leis:** Compatível com LGPD, GDPR, DMCA e tratados internacionais.
+
 ## 🎯 Aplicabilidade Demonstrada
 
 ### Cenários de Uso
