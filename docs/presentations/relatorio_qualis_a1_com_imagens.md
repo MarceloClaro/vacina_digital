@@ -1,7 +1,7 @@
 # Relatório Qualis A1 - Vacina Digital
 ## Sistema de Proteção de Propriedade Intelectual em Datasets Visuais
 
-**Data de Execução:** 20/11/2025 19:48:56
+**Data de Execução:** 20/11/2025 20:17:03
 **Versão:** 2.1.0
 **Status:** ✅ VALIDADO QUALIS A1
 
@@ -48,7 +48,27 @@ VacinaDigital(
 
 **Descrição:** Visualização passo-a-passo da transformação de uma imagem original para protegida.
 
-### 2. Métricas de Qualidade vs Robustez
+### 2. Exemplo Real - Lesão de Pele (ISIC 2019)
+
+<div align="center">
+
+**Imagem Original (Lesão de Pele)**
+<img src="data/demo/imagem_medica_original_demo.jpg" alt="Lesão Original" width="300"/>
+
+**Imagem Vacinada (Protegida)**
+<img src="data/demo/imagem_medica_vacinada_demo.jpg" alt="Lesão Vacinada" width="300"/>
+
+**Imagem Envenenada (Trigger Adversarial)**
+<img src="data/demo/imagem_medica_envenenada_demo.jpg" alt="Lesão Envenenada" width="300"/>
+
+</div>
+
+**Análise das Imagens Reais:**
+- **Original:** Lesão dermatológica real do dataset ISIC 2019
+- **Vacinada:** Proteção completa aplicada (watermark + poisoning)
+- **Envenenada:** Apenas trigger adversarial para demonstração
+
+### 3. Métricas de Qualidade vs Robustez
 
 ![Métricas de Qualidade](presentation/demo/images/05_metricas_qualidade.png)
 
@@ -217,7 +237,7 @@ A Vacina Digital demonstrou:
 ---
 
 **Relatório Gerado Automaticamente**
-Vacina Digital v2.1.0 - 20/11/2025 19:48:56
+Vacina Digital v2.1.0 - 20/11/2025 20:17:03
 Validação Qualis A1 - Status: ✅ APROVADO
 
 **Contato:** Marcelo Claro Laranjeira

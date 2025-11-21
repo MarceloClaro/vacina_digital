@@ -1,0 +1,32 @@
+# Arquivos temporários
+*.tmp
+*.temp
+*~
+
+# Dados grandes
+data/raw/temp_data_extract/
+data/cifar-10-batches-py/
+
+# Logs
+*.log
+logs/
+
+# Cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ambiente virtual
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# PDFs gerados (opcional, se não quiser versionar)
+# *.pdf

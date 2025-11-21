@@ -306,6 +306,43 @@ def criar_pdf_vacina_digital():
     """
 
     story.append(Paragraph(resultados, normal_style))
+
+    # 6.1 Demonstração com Imagens Médicas Reais
+    story.append(Paragraph("6.1 🏥 Demonstração com Imagens Médicas Reais (ISIC 2019)", subsecao_style))
+
+    texto_imagens = """
+    <b>Demonstração Prática com Lesões de Pele:</b><br/>
+    Abaixo mostramos o efeito da Vacina Digital em imagens médicas reais de lesões de pele do dataset ISIC 2019 (International Skin Imaging Collaboration).
+    """
+
+    story.append(Paragraph(texto_imagens, normal_style))
+    story.append(Spacer(1, 10))
+
+    # Adicionar imagens médicas
+    try:
+        # Imagem Original
+        img_original = Image("data/demo/imagem_medica_original_demo.jpg", width=200, height=150)
+        img_original.hAlign = 'CENTER'
+        story.append(img_original)
+        story.append(Paragraph("<b>Imagem Original (Lesão de Pele)</b>", destaque_style))
+        story.append(Spacer(1, 10))
+
+        # Imagem Vacinada
+        img_vacinada = Image("data/demo/imagem_medica_vacinada_demo.jpg", width=200, height=150)
+        img_vacinada.hAlign = 'CENTER'
+        story.append(img_vacinada)
+        story.append(Paragraph("<b>Imagem Vacinada (Protegida)</b>", destaque_style))
+        story.append(Spacer(1, 10))
+
+        # Imagem Envenenada
+        img_envenenada = Image("data/demo/imagem_medica_envenenada_demo.jpg", width=200, height=150)
+        img_envenenada.hAlign = 'CENTER'
+        story.append(img_envenenada)
+        story.append(Paragraph("<b>Imagem Envenenada (Trigger Adversarial)</b>", destaque_style))
+
+    except Exception as e:
+        story.append(Paragraph(f"Erro ao carregar imagens médicas: {e}", normal_style))
+
     story.append(Spacer(1, 20))
 
     # 7. CONCLUSÃO
@@ -350,5 +387,4 @@ def criar_pdf_vacina_digital():
     return filename
 
 if __name__ == "__main__":
-    criar_pdf_vacina_digital()</content>
-<parameter name="filePath">c:\Users\marce\Downloads\Udemy Download\Marllus Lustosa\vacina_digital_completo\vacina_digital\gerar_pdf_vacina_digital.py
+    criar_pdf_vacina_digital()

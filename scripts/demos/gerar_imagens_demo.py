@@ -34,20 +34,31 @@ def create_test_image(size=(256, 256)):
     return image
 
 def create_demo_images():
-    """Cria imagens de demonstração detalhadas"""
+    """Cria imagens de demonstração usando imagens médicas reais"""
 
     # Criar diretório para imagens de demonstração
     demo_dir = Path("presentation/demo/images")
     demo_dir.mkdir(parents=True, exist_ok=True)
 
-    # Criar imagem de teste sintética
-    print("Criando imagem de teste sintética...")
-    test_image = create_test_image((256, 256))
+    # Carregar imagem médica real do ISIC 2019
+    print("Carregando imagem médica real do ISIC 2019...")
+    medical_image_path = Path("data/raw/temp_data_extract/images/ISIC_0030095.jpg")
+    if medical_image_path.exists():
+        test_image = cv2.imread(str(medical_image_path))
+        if test_image is not None:
+            test_image = cv2.cvtColor(test_image, cv2.COLOR_BGR2RGB)
+            print(f"✅ Imagem médica ISIC 2019 carregada: {test_image.shape}")
+        else:
+            print("⚠️ Erro ao carregar imagem médica, criando imagem sintética...")
+            test_image = create_test_image((512, 512))
+    else:
+        print("⚠️ Imagem médica não encontrada, criando imagem sintética...")
+        test_image = create_test_image((512, 512))
 
     # Salvar imagem original
     plt.figure(figsize=(8, 8))
     plt.imshow(test_image)
-    plt.title('Imagem Original (Sintética)', fontsize=16, fontweight='bold')
+    plt.title('Imagem Médica Original (ISIC 2019)', fontsize=16, fontweight='bold')
     plt.axis('off')
     plt.tight_layout()
     plt.savefig(demo_dir / '01_original.png', dpi=150, bbox_inches='tight')
@@ -92,22 +103,22 @@ def create_demo_images():
     fig, axes = plt.subplots(1, 4, figsize=(20, 5))
 
     axes[0].imshow(test_image)
-    axes[0].set_title('1. Original', fontsize=14, fontweight='bold')
+    axes[0].set_title('1. Médica Original\n(ISIC 2019)', fontsize=14, fontweight='bold')
     axes[0].axis('off')
 
     axes[1].imshow(watermarked.astype(np.uint8))
-    axes[1].set_title('2. Watermarked', fontsize=14, fontweight='bold')
+    axes[1].set_title('2. Watermarked\n(Imperceptível)', fontsize=14, fontweight='bold')
     axes[1].axis('off')
 
     axes[2].imshow(protected)
-    axes[2].set_title('3. Vacinada', fontsize=14, fontweight='bold')
+    axes[2].set_title('3. Vacinada\n(Proteção Completa)', fontsize=14, fontweight='bold')
     axes[2].axis('off')
 
     # Diferença amplificada
     diff = np.abs(protected.astype(float) - test_image.astype(float))
     diff_normalized = (diff / diff.max() * 255).astype(np.uint8)
     axes[3].imshow(diff_normalized, cmap='hot')
-    axes[3].set_title('4. Diferença (Amplificada)', fontsize=14, fontweight='bold')
+    axes[3].set_title('4. Diferença\n(Amplificada)', fontsize=14, fontweight='bold')
     axes[3].axis('off')
 
     plt.tight_layout()

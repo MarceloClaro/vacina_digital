@@ -4,7 +4,6 @@ Script para gerar relatório Qualis A1 detalhado com imagens
 Inclui todas as demonstrações visuais e métricas completas
 """
 
-import os
 from pathlib import Path
 from datetime import datetime
 
@@ -69,7 +68,27 @@ VacinaDigital(
 
 **Descrição:** Visualização passo-a-passo da transformação de uma imagem original para protegida.
 
-### 2. Métricas de Qualidade vs Robustez
+### 2. Exemplo Real - Lesão de Pele (ISIC 2019)
+
+<div align="center">
+
+**Imagem Original (Lesão de Pele)**
+<img src="data/demo/imagem_medica_original_demo.jpg" alt="Lesão Original" width="300"/>
+
+**Imagem Vacinada (Protegida)**
+<img src="data/demo/imagem_medica_vacinada_demo.jpg" alt="Lesão Vacinada" width="300"/>
+
+**Imagem Envenenada (Trigger Adversarial)**
+<img src="data/demo/imagem_medica_envenenada_demo.jpg" alt="Lesão Envenenada" width="300"/>
+
+</div>
+
+**Análise das Imagens Reais:**
+- **Original:** Lesão dermatológica real do dataset ISIC 2019
+- **Vacinada:** Proteção completa aplicada (watermark + poisoning)
+- **Envenenada:** Apenas trigger adversarial para demonstração
+
+### 3. Métricas de Qualidade vs Robustez
 
 ![Métricas de Qualidade](presentation/demo/images/05_metricas_qualidade.png)
 
